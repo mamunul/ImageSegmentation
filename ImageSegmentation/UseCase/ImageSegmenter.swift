@@ -18,10 +18,11 @@ class ImageSegmenter: ObservableObject {
 
         var image = UIImage(named: imageName)
 
-        if image == nil { return }
-        image = scaleDown(image: image!, withSize: CGSize(width: 513, height: 513))
+        image = image?.resized(to: CGSize(width: 513, height: 513))
 
-        let pixelBuffer = buffer(from: image!)
+        if image == nil { return }
+
+        let pixelBuffer = image?.pixelBuffer(width: Int((image?.size.width)!), height: Int((image?.size.height)!))
 
         do {
             let result = try model.prediction(image: pixelBuffer!)
@@ -31,7 +32,7 @@ class ImageSegmenter: ObservableObject {
         }
     }
 
-    func previewResult(semanticPredictions: MLMultiArray) {
+    private func previewResult(semanticPredictions: MLMultiArray) {
         outputImage = semanticPredictions.image()
     }
 
@@ -45,42 +46,5 @@ class ImageSegmenter: ObservableObject {
         }
 
         return nil
-    }
-
-    private func scaleDown(image: UIImage, withSize: CGSize) -> UIImage {
-        let scale = UIScreen.main.scale
-        UIGraphicsBeginImageContextWithOptions(withSize, false, scale)
-        image.draw(in: CGRect(x: 0, y: 0, width: withSize.width, height: withSize.height))
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return newImage!
-    }
-
-    private func buffer(from image: UIImage) -> CVPixelBuffer? {
-        let attrs = [
-            kCVPixelBufferCGImageCompatibilityKey: kCFBooleanTrue,
-            kCVPixelBufferCGBitmapContextCompatibilityKey: kCFBooleanTrue,
-        ] as CFDictionary
-        var pixelBuffer: CVPixelBuffer?
-        let status = CVPixelBufferCreate(kCFAllocatorDefault, Int(image.size.width), Int(image.size.height), kCVPixelFormatType_32ARGB, attrs, &pixelBuffer)
-        guard status == kCVReturnSuccess else {
-            return nil
-        }
-
-        CVPixelBufferLockBaseAddress(pixelBuffer!, CVPixelBufferLockFlags(rawValue: 0))
-        let pixelData = CVPixelBufferGetBaseAddress(pixelBuffer!)
-
-        let rgbColorSpace = CGColorSpaceCreateDeviceRGB()
-        let context = CGContext(data: pixelData, width: Int(image.size.width), height: Int(image.size.height), bitsPerComponent: 8, bytesPerRow: CVPixelBufferGetBytesPerRow(pixelBuffer!), space: rgbColorSpace, bitmapInfo: CGImageAlphaInfo.noneSkipFirst.rawValue)
-
-        context?.translateBy(x: 0, y: image.size.height)
-        context?.scaleBy(x: 1.0, y: -1.0)
-
-        UIGraphicsPushContext(context!)
-        image.draw(in: CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height))
-        UIGraphicsPopContext()
-        CVPixelBufferUnlockBaseAddress(pixelBuffer!, CVPixelBufferLockFlags(rawValue: 0))
-
-        return pixelBuffer
     }
 }
