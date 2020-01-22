@@ -7,9 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B2B0392A23D855EC008ACE81 /* DeepLabV3Int8LUT.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = B2B0392723D855EB008ACE81 /* DeepLabV3Int8LUT.mlmodel */; };
+		B2B0392B23D855EC008ACE81 /* DeepLabV3.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = B2B0392823D855EB008ACE81 /* DeepLabV3.mlmodel */; };
+		B2B0392C23D855EC008ACE81 /* DeepLabV3FP16.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = B2B0392923D855EC008ACE81 /* DeepLabV3FP16.mlmodel */; };
+		B2B0393023D857D1008ACE81 /* ImageSegmenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B0392F23D857D1008ACE81 /* ImageSegmenter.swift */; };
 		B2D1EB4523D845200012BAC3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D1EB4423D845200012BAC3 /* AppDelegate.swift */; };
 		B2D1EB4723D845200012BAC3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D1EB4623D845200012BAC3 /* SceneDelegate.swift */; };
-		B2D1EB4923D845200012BAC3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D1EB4823D845200012BAC3 /* ContentView.swift */; };
+		B2D1EB4923D845200012BAC3 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D1EB4823D845200012BAC3 /* MainView.swift */; };
 		B2D1EB4B23D845250012BAC3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2D1EB4A23D845250012BAC3 /* Assets.xcassets */; };
 		B2D1EB4E23D845250012BAC3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2D1EB4D23D845250012BAC3 /* Preview Assets.xcassets */; };
 		B2D1EB5123D845250012BAC3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2D1EB4F23D845250012BAC3 /* LaunchScreen.storyboard */; };
@@ -35,10 +39,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B2B0392723D855EB008ACE81 /* DeepLabV3Int8LUT.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = DeepLabV3Int8LUT.mlmodel; sourceTree = "<group>"; };
+		B2B0392823D855EB008ACE81 /* DeepLabV3.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = DeepLabV3.mlmodel; sourceTree = "<group>"; };
+		B2B0392923D855EC008ACE81 /* DeepLabV3FP16.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = DeepLabV3FP16.mlmodel; sourceTree = "<group>"; };
+		B2B0392F23D857D1008ACE81 /* ImageSegmenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSegmenter.swift; sourceTree = "<group>"; };
 		B2D1EB4123D845200012BAC3 /* ImageSegmentation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageSegmentation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2D1EB4423D845200012BAC3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B2D1EB4623D845200012BAC3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		B2D1EB4823D845200012BAC3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		B2D1EB4823D845200012BAC3 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		B2D1EB4A23D845250012BAC3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B2D1EB4D23D845250012BAC3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B2D1EB5023D845250012BAC3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -76,6 +84,51 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B2B0392523D855D0008ACE81 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B2B0392623D855D8008ACE81 /* Model */,
+				B2D1EB4A23D845250012BAC3 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		B2B0392623D855D8008ACE81 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B2B0392823D855EB008ACE81 /* DeepLabV3.mlmodel */,
+				B2B0392923D855EC008ACE81 /* DeepLabV3FP16.mlmodel */,
+				B2B0392723D855EB008ACE81 /* DeepLabV3Int8LUT.mlmodel */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B2B0392D23D85748008ACE81 /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+				B2B0392F23D857D1008ACE81 /* ImageSegmenter.swift */,
+			);
+			path = UseCase;
+			sourceTree = "<group>";
+		};
+		B2B0392E23D85757008ACE81 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B2D1EB4823D845200012BAC3 /* MainView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B2B0393123D85ABD008ACE81 /* LifeCycle */ = {
+			isa = PBXGroup;
+			children = (
+				B2D1EB4F23D845250012BAC3 /* LaunchScreen.storyboard */,
+				B2D1EB4423D845200012BAC3 /* AppDelegate.swift */,
+				B2D1EB4623D845200012BAC3 /* SceneDelegate.swift */,
+			);
+			path = LifeCycle;
+			sourceTree = "<group>";
+		};
 		B2D1EB3823D845200012BAC3 = {
 			isa = PBXGroup;
 			children = (
@@ -99,11 +152,10 @@
 		B2D1EB4323D845200012BAC3 /* ImageSegmentation */ = {
 			isa = PBXGroup;
 			children = (
-				B2D1EB4423D845200012BAC3 /* AppDelegate.swift */,
-				B2D1EB4623D845200012BAC3 /* SceneDelegate.swift */,
-				B2D1EB4823D845200012BAC3 /* ContentView.swift */,
-				B2D1EB4A23D845250012BAC3 /* Assets.xcassets */,
-				B2D1EB4F23D845250012BAC3 /* LaunchScreen.storyboard */,
+				B2B0392D23D85748008ACE81 /* UseCase */,
+				B2B0392E23D85757008ACE81 /* View */,
+				B2B0392523D855D0008ACE81 /* Resources */,
+				B2B0393123D85ABD008ACE81 /* LifeCycle */,
 				B2D1EB5223D845250012BAC3 /* Info.plist */,
 				B2D1EB4C23D845250012BAC3 /* Preview Content */,
 			);
@@ -267,9 +319,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2B0392C23D855EC008ACE81 /* DeepLabV3FP16.mlmodel in Sources */,
 				B2D1EB4523D845200012BAC3 /* AppDelegate.swift in Sources */,
+				B2B0393023D857D1008ACE81 /* ImageSegmenter.swift in Sources */,
 				B2D1EB4723D845200012BAC3 /* SceneDelegate.swift in Sources */,
-				B2D1EB4923D845200012BAC3 /* ContentView.swift in Sources */,
+				B2B0392A23D855EC008ACE81 /* DeepLabV3Int8LUT.mlmodel in Sources */,
+				B2B0392B23D855EC008ACE81 /* DeepLabV3.mlmodel in Sources */,
+				B2D1EB4923D845200012BAC3 /* MainView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
