@@ -6,26 +6,33 @@
 //  Copyright © 2020 New User. All rights reserved.
 //
 
+import CoreML
 import Foundation
+import SwiftUI
 import UIKit
 
-class ImageSegmenter {
+class ImageSegmenter: ObservableObject {
+    @Published var outputImage: UIImage?
     func runModel(on imageName: String) {
         guard let model = makeModel() else { return }
 
         var image = UIImage(named: imageName)
 
+        if image == nil { return }
         image = scaleDown(image: image!, withSize: CGSize(width: 513, height: 513))
 
         let pixelBuffer = buffer(from: image!)
 
         do {
             let result = try model.prediction(image: pixelBuffer!)
-            
-            print(result.semanticPredictions)
+            previewResult(semanticPredictions: result.semanticPredictions)
         } catch {
             print(error)
         }
+    }
+
+    func previewResult(semanticPredictions: MLMultiArray) {
+        outputImage = semanticPredictions.image()
     }
 
     private func makeModel() -> DeepLabV3? {

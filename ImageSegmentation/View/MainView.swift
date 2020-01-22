@@ -10,8 +10,9 @@ import SwiftUI
 import UIKit
 
 struct MainView: View {
-    let segmenter = ImageSegmenter()
+    @ObservedObject var segmenter = ImageSegmenter()
     @State var selectedImage = "0"
+
     var body: some View {
         VStack {
             ScrollView(.horizontal) {
@@ -32,6 +33,12 @@ struct MainView: View {
                     Text("Run model").padding()
                 }
             )
+
+            Spacer()
+            if self.$segmenter.outputImage.wrappedValue != nil {
+                Image(uiImage: self.$segmenter.outputImage.wrappedValue!)
+                    .frame(width: 250, height: 250)
+            }
         }
     }
 }
